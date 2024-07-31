@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Main</title>
+</head>
+<body>
+	<h3 th:if="${failure}" style="color: green" th:text="${failure}"></h3>
+	<h3 th:if="${success}" style="color: green" th:text="${success}"></h3>
+
+	<div th:if="${list}">
+		<table border="1">
+			<tr>
+				<th>Name</th>
+				<th>Mobile</th>
+				<th>Gender</th>
+				<th>Maths</th>
+				<th>Science</th>
+				<th>English</th>
+				<th>Percentage</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
+
+			<tr th:each="student:${list}">
+				<td th:text="${student.name}"></td>
+				<td th:text="${student.mobile}">Mobile</td>
+				<td th:text="${student.gender}">Gender</td>
+				<td th:text="${student.maths}">Maths</td>
+				<td th:text="${student.science}">Science</td>
+				<td th:text="${student.english}">English</td>
+				<td th:text="${(student.maths+student.english+student.science)/3.0}">Percentage</td>
+				<td><a th:href="'/edit/'+${student.id}"><button>Edit</button></a></td>
+				<td><a th:href="'/delete/'+${student.id}"><button>Delete</button></a></td>
+			</tr>
+		</table>
+		<br> <br> <br>
+	</div>
+
+	<a href="/insert"><button>Insert Record</button></a>
+
+
+
+	<div th:if="${insert}">
+		<br> <br>
+		<form action="/insert" method="post">
+			Name: <input type="text" name="name" placeholder="Enter Name">
+			<br> Mobile: <input type="number" name="mobile"
+				placeholder="Enter Mobile"> <br> Gender: <input
+				type="radio" name="gender" value="male">Male <input
+				type="radio" name="gender" value="female">Female <br>
+			Marks:<br> Maths : <input type="text" name="maths"
+				placeholder="Enter Maths Marks"> <br> Science : <input
+				type="text" name="science" placeholder="Enter Science Marks">
+			<br> English : <input type="text" name="english"
+				placeholder="Enter English Marks"> <br>
+			<button>Insert</button>
+		</form>
+	</div>
+	
+	<div th:if="${update}">
+		<br> <br>
+		<form action="/update" method="post" th:object="${student}">
+		<input type="hidden" name="id" th:field="*{id}" >
+			Name: <input type="text" name="name" th:field="*{name}" placeholder="Enter Name">
+			<br> Mobile: <input type="number" name="mobile" th:field="*{mobile}"
+				placeholder="Enter Mobile"> <br> Gender: <input
+				type="radio" name="gender"  th:field="*{gender}" value="male">Male <input
+				type="radio" name="gender"  th:field="*{gender}" value="female">Female <br>
+			Marks:<br> Maths : <input type="text" name="maths" th:field="*{maths}"
+				placeholder="Enter Maths Marks"> <br> Science : <input
+				type="text" name="science" th:field="*{science}" placeholder="Enter Science Marks">
+			<br> English : <input type="text" th:field="*{english}" name="english"
+				placeholder="Enter English Marks"> <br>
+			<button>Update</button>
+		</form>
+	</div>
+</body>
+</html>
