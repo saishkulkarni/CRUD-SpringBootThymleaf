@@ -29,7 +29,7 @@
 				<td th:text="${student.maths}">Maths</td>
 				<td th:text="${student.science}">Science</td>
 				<td th:text="${student.english}">English</td>
-				<td th:text="${(student.maths+student.english+student.science)/3.0}">Percentage</td>
+				<td th:text="${student.percentage}">Percentage</td>
 				<td><a th:href="'/edit/'+${student.id}"><button>Edit</button></a></td>
 				<td><a th:href="'/delete/'+${student.id}"><button>Delete</button></a></td>
 			</tr>
@@ -56,23 +56,46 @@
 				placeholder="Enter English Marks"> <br>
 			<button>Insert</button>
 		</form>
+		<br>
 	</div>
-	
+
 	<div th:if="${update}">
 		<br> <br>
 		<form action="/update" method="post" th:object="${student}">
-		<input type="hidden" name="id" th:field="*{id}" >
-			Name: <input type="text" name="name" th:field="*{name}" placeholder="Enter Name">
-			<br> Mobile: <input type="number" name="mobile" th:field="*{mobile}"
-				placeholder="Enter Mobile"> <br> Gender: <input
-				type="radio" name="gender"  th:field="*{gender}" value="male">Male <input
-				type="radio" name="gender"  th:field="*{gender}" value="female">Female <br>
-			Marks:<br> Maths : <input type="text" name="maths" th:field="*{maths}"
+			<input type="hidden" name="id" th:field="*{id}"> Name: <input
+				type="text" name="name" th:field="*{name}" placeholder="Enter Name">
+			<br> Mobile: <input type="number" name="mobile"
+				th:field="*{mobile}" placeholder="Enter Mobile"> <br>
+			Gender: <input type="radio" name="gender" th:field="*{gender}"
+				value="male">Male <input type="radio" name="gender"
+				th:field="*{gender}" value="female">Female <br> Marks:<br>
+			Maths : <input type="text" name="maths" th:field="*{maths}"
 				placeholder="Enter Maths Marks"> <br> Science : <input
-				type="text" name="science" th:field="*{science}" placeholder="Enter Science Marks">
-			<br> English : <input type="text" th:field="*{english}" name="english"
+				type="text" name="science" th:field="*{science}"
+				placeholder="Enter Science Marks"> <br> English : <input
+				type="text" th:field="*{english}" name="english"
 				placeholder="Enter English Marks"> <br>
 			<button>Update</button>
+		</form>
+		<br>
+	</div>
+
+	<a href="/fetch"><button>Fetch Records</button></a>
+
+	<div th:if="${fetch}">
+		<br> <a href="/fetch/name"><button>Fetch Records By
+				Name</button></a> <a href="/fetch/mobile"><button>Fetch Records By
+				Mobile</button></a> <a href="/fetch/gender"><button>Fetch Records By
+				Gender</button></a> <a href="/fetch/marks"><button>Fetch Records By
+				Marks</button></a> <a href="/fetch/percentage"><button>Fetch Records
+				By Percentage</button></a>
+	</div>
+
+	<div th:if="${field}">
+		<br>
+		<form th:action="'/fetch/'+${field}" method="post">
+			Enter <span th:text="${field}"></span> : <input type="text"
+				th:name="${field}"> <button>Search</button>
 		</form>
 	</div>
 </body>

@@ -19,4 +19,8 @@ public class Student {
 	private int maths;
 	private int science;
 	private int english;
+
+	public double getPercentage() {
+		return (maths + english + science) / 3.0;
+	}
 }
